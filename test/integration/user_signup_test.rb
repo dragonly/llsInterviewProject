@@ -7,6 +7,9 @@ class UserSignupTest < ActionDispatch::IntegrationTest
         username: "test",
         password: "1234567"
       }}
+      response_json = JSON.parse(response.body)
+      assert_equal response_json["result"], "fail"
+      assert_equal response_json["error"], ["Password is too short (minimum is 8 characters)"]
     end
   end
 
@@ -16,6 +19,8 @@ class UserSignupTest < ActionDispatch::IntegrationTest
         username: "test",
         password: "12345678"
       }}
+      response_json = JSON.parse(response.body)
+      assert_equal response_json["result"], "success"
     end
   end
 end
