@@ -1,0 +1,5 @@
+# bugs/warnings in RoR and its dependencies
+- https://github.com/seattlerb/minitest/issues/689
+  - lock minitest to 5.10.1
+- https://github.com/rails/rails/issues/29521
+  - lock pg to 0.20.0
