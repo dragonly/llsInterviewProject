@@ -4,6 +4,10 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 8 }
 
+  has_one :balance, dependent: :destroy
+  has_many :red_packet, dependent: :destroy
+  has_many :red_packet_gamble, dependent: :destroy
+
   # for test fixture password generation
   def User.password_digest(string)
     cost = BCrypt::Engine::MIN_COST

@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908045218) do
+ActiveRecord::Schema.define(version: 20170908104528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "balances", force: :cascade do |t|
+    t.integer  "amount"
+    t.integer  "users_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_balances_on_users_id", using: :btree
+  end
+
+  create_table "red_packet_gambles", force: :cascade do |t|
+    t.integer  "amount"
+    t.integer  "users_id"
+    t.integer  "red_packets_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["red_packets_id"], name: "index_red_packet_gambles_on_red_packets_id", using: :btree
+    t.index ["users_id"], name: "index_red_packet_gambles_on_users_id", using: :btree
+  end
+
+  create_table "red_packets", force: :cascade do |t|
+    t.string   "token",      limit: 8, null: false
+    t.integer  "amount"
+    t.integer  "users_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["users_id"], name: "index_red_packets_on_users_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

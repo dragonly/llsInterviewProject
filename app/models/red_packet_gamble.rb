@@ -1,0 +1,2 @@
+class RedPacketGamble < ApplicationRecord
+end
