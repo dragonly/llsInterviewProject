@@ -1,0 +1,2 @@
+module RedPacketHelper
+end

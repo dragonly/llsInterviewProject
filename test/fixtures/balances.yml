@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  total: 1
-  sent: 1
-  user: one
+  amount: 0
+  user_id: 1
 
 two:
-  total: 1
-  sent: 1
-  user: two
+  amount: 0
+  user_id: 2

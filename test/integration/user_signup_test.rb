@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserSignupTest < ActionDispatch::IntegrationTest
   test "failed signup" do
-    assert_no_difference 'User.count' do
+    assert_no_difference "User.count" do
       post user_index_path, params: { user: {
         username: "test",
         password: "1234567"
@@ -14,13 +14,15 @@ class UserSignupTest < ActionDispatch::IntegrationTest
   end
 
   test "successful signup" do
-    assert_difference 'User.count', 1 do
+    assert_difference "User.count", 1 do
       post user_index_path, params: { user: {
         username: "test",
         password: "12345678"
       }}
       response_json = JSON.parse(response.body)
       assert_equal response_json["result"], "success"
+      user = User.first
+      assert !user.balance.nil?
     end
   end
 end

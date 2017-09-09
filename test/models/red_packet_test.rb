@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RedPacketTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "random money generation" do
+    #TODO
+  end
 end

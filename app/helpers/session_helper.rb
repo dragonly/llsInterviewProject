@@ -15,4 +15,13 @@ module SessionHelper
   def logged_in?
     !current_user.nil?
   end
+
+  def require_logged_in
+    if !logged_in?
+      render :json => {
+        :error => "login required"
+      }
+      false
+    end
+  end
 end

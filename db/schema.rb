@@ -17,29 +17,31 @@ ActiveRecord::Schema.define(version: 20170908104528) do
 
   create_table "balances", force: :cascade do |t|
     t.integer  "amount"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_balances_on_users_id", using: :btree
+    t.index ["user_id"], name: "index_balances_on_user_id", using: :btree
   end
 
-  create_table "red_packet_gambles", force: :cascade do |t|
+  create_table "red_packet_records", force: :cascade do |t|
     t.integer  "amount"
-    t.integer  "users_id"
-    t.integer  "red_packets_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["red_packets_id"], name: "index_red_packet_gambles_on_red_packets_id", using: :btree
-    t.index ["users_id"], name: "index_red_packet_gambles_on_users_id", using: :btree
+    t.integer  "user_id"
+    t.integer  "red_packet_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["red_packet_id"], name: "index_red_packet_records_on_red_packet_id", using: :btree
+    t.index ["user_id"], name: "index_red_packet_records_on_user_id", using: :btree
   end
 
   create_table "red_packets", force: :cascade do |t|
     t.string   "token",      limit: 8, null: false
     t.integer  "amount"
-    t.integer  "users_id"
+    t.integer  "quantity"
+    t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.index ["users_id"], name: "index_red_packets_on_users_id", using: :btree
+    t.index ["token"], name: "index_red_packets_on_token", using: :btree
+    t.index ["user_id"], name: "index_red_packets_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

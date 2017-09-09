@@ -7,8 +7,8 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       password: "password2"
     }}
     response_json = JSON.parse(response.body)
-    assert_equal response_json["result"], "fail"
-    assert_equal response_json["error"], "password incorrect"
+    assert_equal "fail", response_json["result"]
+    assert_equal "password incorrect", response_json["error"]
   end
 
   test "failed login (wrong username)" do
@@ -17,8 +17,8 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       password: "password1"
     }}
     response_json = JSON.parse(response.body)
-    assert_equal response_json["result"], "fail"
-    assert_equal response_json["error"], "no such user"
+    assert_equal "fail", response_json["result"]
+    assert_equal "no such user", response_json["error"]
   end
 
   test "successful login" do
@@ -27,7 +27,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
       password: "password1"
     }}
     response_json = JSON.parse(response.body)
-    assert_equal response_json["result"], "success"
+    assert_equal "success", response_json["result"]
   end
 
   test "logout" do
