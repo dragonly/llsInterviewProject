@@ -1,0 +1,111 @@
+# api docs
+
+all apis are called with json format
+
+
+## api descriptions
+
+======
+### user
+
+POST /user:
+  description: create a new user
+  requestBody:
+    schema:
+      username:
+        type: string
+        limit: at most 64 characters
+      password:
+        type: string
+        limit: at least 8 characters
+  responses:
+    success:
+      description: OK
+    error_1:
+      description: username of password not valid
+    error_2:
+      description: database error
+
+POST /login:
+  description: login to use red packet functions
+  requestBody:
+    schema:
+      username:
+        type: string
+      password:
+        type: string
+  responsee:
+    success:
+      description: OK
+    error_1:
+      description: no such user with
+    error_2:
+      description: password incorrect
+
+DELETE /login:
+  description: logout
+  requestBody:
+    none
+  responses:
+    none
+
+
+======
+### red packet
+
+POST /red_packet/issue:
+  description: issue a new red packet, which will be expired in 24 hours
+  requestBody:
+    schema:
+      amount:
+        description: money in this red_packet
+        type: integer
+        limit: positive integer
+      quantity:
+        description: number of users that can get this red packet
+        type: integer
+        limit: positive integer, greater or equal than amount
+  responses:
+    success:
+      schema:
+        token:
+          description: system generated 8-character red packet token
+          type: string
+        amount:
+          description: same as in request body
+        quantity:
+          description: same as in request body
+        expired:
+          description: is this red packet expired
+          type: boolean
+    error:
+      description: parameters not valid 
+
+POST /red_packet/gamble:
+  description: try to get random money from a red packet. amount of money will be subtracted from the redpacket and added to user logged in.
+  requestBody:
+    schema:
+      token:
+        description: red packet token
+        type: string
+  responses:
+    success:
+      description: user balance will add the amount of gotton red packet
+      schema:
+        amount:
+          description: amount got in this turn of red packet gamble
+          type: integer
+    error_1:
+      description: no such red packet with token #{token}
+    error_2:
+      description: red packet #{token} is expired
+    error_3:
+      description: red packet #{token} is spent up
+    error_4:
+      description: red packet #{token} has been taken by this user
+
+GET /red_packet/list:
+  description: get list aquired red packet records of user logged in
+
+GET /red_packet/balance:
+  description: get balance of user looged in

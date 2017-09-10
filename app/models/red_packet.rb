@@ -1,8 +1,8 @@
 class RedPacket < ApplicationRecord
   belongs_to :user
   has_many :red_packet_records
-  validates :amount, presence: true
-  validates :quantity, presence: true
+  validates :amount, presence: true, numericality: { greater_than: 0 }
+  validates :quantity, presence: true, numericality: { greater_than: 0 }
   validate :amount_quantity_validation
 
   def amount_quantity_validation
