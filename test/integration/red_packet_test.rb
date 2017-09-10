@@ -102,4 +102,8 @@ class RedPacketIntegrationTest < ActionDispatch::IntegrationTest
     record = RedPacketRecord.first
     assert_equal record.amount, response_json["amount"]
   end
+
+  test "expired red packet" do
+    # TODO
+  end
 end

@@ -4,6 +4,7 @@ class CreateRedPackets < ActiveRecord::Migration[5.0]
       t.string :token, :limit => 8, :null => false, index: true, unique: true
       t.integer :amount
       t.integer :quantity
+      t.boolean :expired
       t.belongs_to :user, index: true
 
       t.timestamps

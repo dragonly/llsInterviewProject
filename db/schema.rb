@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170908104528) do
     t.string   "token",      limit: 8, null: false
     t.integer  "amount"
     t.integer  "quantity"
+    t.boolean  "expired"
     t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false

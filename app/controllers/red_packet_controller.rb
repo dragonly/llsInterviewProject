@@ -6,9 +6,10 @@ class RedPacketController < ApplicationController
     amount = params[:amount]
     quantity = params[:quantity]
     token = gen_token
-    red_packet = RedPacket.new(token: token, amount: amount, quantity: quantity, user_id: current_user.id)
+    red_packet = RedPacket.new(token: token, amount: amount, quantity: quantity, expired: false, user_id: current_user.id)
     red_packet.save
     if !red_packet.errors.nil?
+      RedPacketCleanUpJob.set(wait: 1.day).perform_later red_packet
       render :json => red_packet
     else
       render :json => red_packet.errors.full_messages
@@ -21,6 +22,10 @@ class RedPacketController < ApplicationController
     red_packet = RedPacket.find_by(token: token)
     if red_packet.nil?
       render :json => { :error => "no suck red packet with token #{token}" }
+      return
+    end
+    if red_packet.expired
+      render :json => { :error => "red packet #{token} is expired" }
       return
     end
     if red_packet.quantity == red_packet.red_packet_records.count

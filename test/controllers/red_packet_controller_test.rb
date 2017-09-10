@@ -13,4 +13,12 @@ class RedPacketControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal total, a.sum
   end
+
+  test "expired red packet" do
+    red_packet = RedPacket.create(token: "12345678", amount: 233, quantity: 233, expired: false, user_id: 1)
+    assert_equal false, red_packet.expired
+    RedPacketCleanUpJob.perform_now(red_packet)
+    red_packet = RedPacket.first
+    assert_equal true, red_packet.expired
+  end
 end
