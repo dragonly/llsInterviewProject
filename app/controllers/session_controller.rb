@@ -1,6 +1,10 @@
 class SessionController < ApplicationController
   def create
-    user = User.find_by(username: login_params[:username])
+    params.require(:username)
+    params.require(:password)
+    username = params["username"]
+    password = params["password"]
+    user = User.find_by(username: username)
     if !user
       render :json => {
         :result => "fail",
@@ -8,7 +12,7 @@ class SessionController < ApplicationController
       }
       return
     end
-    if !user.authenticate(login_params[:password])
+    if !user.authenticate(password)
       render :json => {
         :result => "fail",
         :error => "password incorrect"
@@ -21,10 +25,5 @@ class SessionController < ApplicationController
 
   def destroy
     log_out
-  end
-
-  private
-  def login_params
-    params.require(:user).permit(:username, :password)
   end
 end

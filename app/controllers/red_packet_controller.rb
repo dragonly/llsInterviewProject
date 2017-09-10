@@ -21,7 +21,7 @@ class RedPacketController < ApplicationController
     token = params[:token]
     red_packet = RedPacket.find_by(token: token)
     if red_packet.nil?
-      render :json => { :error => "no suck red packet with token #{token}" }
+      render :json => { :error => "no such red packet with token #{token}" }
       return
     end
     if red_packet.expired
@@ -29,7 +29,7 @@ class RedPacketController < ApplicationController
       return
     end
     if red_packet.quantity == red_packet.red_packet_records.count
-      render :json => { :error => "red packet #{token} spent up" }
+      render :json => { :error => "red packet #{token} is spent up" }
       return
     end
     if red_packet.red_packet_records.map{|record| record.user_id}.include?(current_user.id)

@@ -5,6 +5,12 @@ class UserController < ApplicationController
   end
 
   def create
+    params.require(:username)
+    params.require(:password)
+    user_params = {
+      :username => params["username"],
+      :password => params["password"]
+    }
     user = User.new(user_params)
     if not user.valid?
       render :json => {
@@ -20,11 +26,5 @@ class UserController < ApplicationController
     else
       render :json => { :result => "fail" }
     end
-  end
-
-  private
-  # strong parameters
-  def user_params
-    params.require(:user).permit(:username, :password)
   end
 end

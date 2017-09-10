@@ -54,13 +54,13 @@ class RedPacketIntegrationTest < ActionDispatch::IntegrationTest
       token: red_packet.token
     }
     response_json = JSON.parse(response.body)
-    assert_equal "red packet #{red_packet.token} spent up", response_json["error"]
+    assert_equal "red packet #{red_packet.token} is spent up", response_json["error"]
 
     post red_packet_gamble_path, params: {
       token: "fake_token"
     }
     response_json = JSON.parse(response.body)
-    assert_equal "no suck red packet with token fake_token", response_json["error"]
+    assert_equal "no such red packet with token fake_token", response_json["error"]
   end
 
   test "double aquire same red packet" do
@@ -101,9 +101,5 @@ class RedPacketIntegrationTest < ActionDispatch::IntegrationTest
     response_json = JSON.parse(response.body)
     record = RedPacketRecord.first
     assert_equal record.amount, response_json["amount"]
-  end
-
-  test "expired red packet" do
-    # TODO
   end
 end

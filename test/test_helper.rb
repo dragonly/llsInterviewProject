@@ -15,9 +15,9 @@ class ActiveSupport::TestCase
   end
 
   def log_in(username, password)
-    post login_path, params: { user: {
+    post login_path, params: {
       username: username,
       password: password
-    }}
+    }
   end
 end

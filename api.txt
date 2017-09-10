@@ -1,6 +1,8 @@
 # api docs
 
-all apis are called with json format
+all apis are called with json format.
+
+money amount are correct to two decimal places, which means 1.00 yuan is denoted as 100 in this system.
 
 
 ## api descriptions
